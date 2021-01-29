@@ -1,0 +1,29 @@
+version: '3.5'
+services:
+  docker-1:
+    image: myapp/docker-1
+    ports:
+      - '8090:8090'
+    deploy:
+      replicas: 2
+    networks:
+      - gp-network      
+  docker-2:
+    image: myapp/docker-2
+    ports:
+      - '8081:8081'  
+    deploy:
+      replicas: 2
+    networks:
+      - gp-network
+  zuul-prox:
+    image: myapp/zuulproxy
+    ports:
+      - '8084:8084'
+    deploy:
+      replicas: 1
+    networks:
+      - gp-network
+networks:
+  gp-network:
+    driver: overlay
